@@ -1,41 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:quant/pages/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'quant',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color(0x1A2E35FF),
+          primary:  Color(0x1A2E35FF),
+          onPrimary: Color(0xD8E1E0FF),
+          secondary: Color(0x3B4347FF),
+          onSecondary: Color(0xFCFCFDFF)
+        ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: const HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget{
-  const MyHomePage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Text("Bienvenido"),
-            Text("\$00.00"),
-          ],
-        ),
-      ),
-    );
-  }
 
-}
 
