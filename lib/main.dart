@@ -25,7 +25,16 @@ class MyHomePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    throw Placeholder();
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Text("Bienvenido"),
+            Text("\$00.00"),
+          ],
+        ),
+      ),
+    );
   }
 
 }
