@@ -1,6 +1,6 @@
 # quant
 
-A new Flutter project.
+A personal finance app.
 
 ## Getting Started
 
