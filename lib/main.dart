@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quant/pages/create_expense_page.dart';
+import 'package:quant/pages/create_income_page.dart';
 import 'package:quant/pages/home_page.dart';
 
 void main() {
@@ -23,10 +25,12 @@ class App extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const HomePage(),
+      routes: {
+        // Incomes
+        '/incomes/create': (context) => CreateIncomePage(),
+        // Expenses
+        '/expenses/create': (context) => CreateExpensePage(),
+      },
     );
   }
 }
-
-
-
-
