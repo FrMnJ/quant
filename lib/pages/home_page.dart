@@ -27,6 +27,30 @@ class HomePage extends StatelessWidget {
               ),
               SizedBox(height: 60),
               Quant(),
+              Center(
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      key: Key("addIncomeButton"),
+                      onPressed: (){
+                          Navigator.pushNamed(context, '/incomes/create');
+                      },
+                      child: const Text(
+                        "Añadir ingreso"
+                      ),
+                    ),
+                    ElevatedButton(
+                      key: Key("addExpenseButton"),
+                      onPressed: (){
+                          Navigator.pushNamed(context, '/expenses/create');
+                      },
+                      child: const Text(
+                        "Añadir gasto"
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
