@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quant/pages/create_expense_page.dart';
 import 'package:quant/pages/create_income_page.dart';
 import 'package:quant/pages/home_page.dart';
+import 'package:quant/theme/colors.dart';
 
 void main() {
   runApp(const App());
@@ -14,13 +15,18 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'quant',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Color(0x1A2E35FF),
-          primary:  Color(0x1A2E35FF),
-          onPrimary: Color(0xD8E1E0FF),
-          secondary: Color(0x3B4347FF),
-          onSecondary: Color(0xFCFCFDFF)
+        colorScheme: ColorScheme(
+          brightness: Brightness.dark,
+          primary: AppColors.surface,
+          onPrimary: AppColors.onSurface,
+          secondary: AppColors.secondary,
+          onSecondary: AppColors.onSecondary,
+          error: AppColors.error,
+          onError: AppColors.onError,
+          surface: AppColors.background,
+          onSurface: AppColors.onBackground,
         ),
         useMaterial3: true,
       ),

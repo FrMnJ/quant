@@ -8,12 +8,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: colorScheme.primary,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
-        child: Align( 
+        child: Align(
           alignment: Alignment.topLeft,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, 
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(35.0),
@@ -21,31 +21,53 @@ class HomePage extends StatelessWidget {
                   "Bienvenido",
                   style: TextStyle(
                     fontSize: 32,
-                    color: colorScheme.onPrimary,
+                    color: colorScheme.onSurface,
                   ),
                 ),
               ),
+              SizedBox(height: 50),
+              Center(child: Quant()),
               SizedBox(height: 60),
-              Quant(),
               Center(
                 child: Column(
                   children: [
-                    ElevatedButton(
-                      key: Key("addIncomeButton"),
-                      onPressed: (){
+                    SizedBox(
+                      width: 300,
+                      height: 50,
+                      child: ElevatedButton(
+                        key: Key("addIncomeButton"),
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all(colorScheme.primary),
+                        ),
+                        onPressed: () {
                           Navigator.pushNamed(context, '/incomes/create');
-                      },
-                      child: const Text(
-                        "Añadir ingreso"
+                        },
+                        child: Text(
+                          "Añadir ingreso",
+                          style: TextStyle(
+                            color: colorScheme.onPrimary,
+                          ),
+                        ),
                       ),
                     ),
-                    ElevatedButton(
-                      key: Key("addExpenseButton"),
-                      onPressed: (){
+                    SizedBox(height: 20),
+                    SizedBox(
+                      width: 300,
+                      height: 50,
+                      child: ElevatedButton(
+                        key: Key("addExpenseButton"),
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all(colorScheme.primary),
+                        ),
+                        onPressed: () {
                           Navigator.pushNamed(context, '/expenses/create');
-                      },
-                      child: const Text(
-                        "Añadir gasto"
+                        },
+                        child: Text(
+                          "Añadir gasto",
+                          style: TextStyle(
+                            color: colorScheme.onPrimary,
+                          ),
+                        ),
                       ),
                     ),
                   ],

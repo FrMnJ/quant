@@ -7,13 +7,22 @@ class Quant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var colorScheme = Theme.of(context).colorScheme;
-    return Center( 
-      child: Text(
-        "\$00.00",
-        style: TextStyle(
-          fontSize: 48,
-          color: colorScheme.onPrimary,
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 8,
+      color: Colors.blueGrey[900],
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
+        child: Text(
+          "\$00.00",
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 1.5,
+          ),
         ),
       ),
     );
