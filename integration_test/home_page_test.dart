@@ -11,7 +11,7 @@ void main(){
       await tester.pumpWidget(App());
 
       expect(find.text('Bienvenido'), findsOneWidget);
-      expect(find.text('\$00.00'), findsOneWidget);
+      expect(find.text('\$0.00'), findsOneWidget);
       expect(find.text('Añadir ingreso'), findsOneWidget);
       expect(find.text('Añadir gasto'), findsOneWidget);
       expect(find.byKey(Key('addIncomeButton')), findsOneWidget);

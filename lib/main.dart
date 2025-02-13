@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quant/pages/create_expense_page.dart';
 import 'package:quant/pages/create_income_page.dart';
 import 'package:quant/pages/home_page.dart';
+import 'package:quant/state/quantity_state_provider.dart';
 import 'package:quant/theme/colors.dart';
 
 void main() {
@@ -13,30 +15,36 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'quant',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme(
-          brightness: Brightness.dark,
-          primary: AppColors.surface,
-          onPrimary: AppColors.onSurface,
-          secondary: AppColors.secondary,
-          onSecondary: AppColors.onSecondary,
-          error: AppColors.error,
-          onError: AppColors.onError,
-          surface: AppColors.background,
-          onSurface: AppColors.onBackground,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => QuantityStateProvider()),
+      ],
+      child: MaterialApp(
+        title: 'quant',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme(
+            brightness: Brightness.dark,
+            primary: AppColors.surface,
+            onPrimary: AppColors.onSurface,
+            secondary: AppColors.secondary,
+            onSecondary: AppColors.onSecondary,
+            error: AppColors.error,
+            onError: AppColors.onError,
+            surface: AppColors.background,
+            onSurface: AppColors.onBackground,
+          ),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
+        home: const HomePage(),
+        routes: {
+          '/home': (context) => HomePage(),
+          // Incomes
+          '/incomes/create': (context) => CreateIncomePage(),
+          // Expenses
+          '/expenses/create': (context) => CreateExpensePage(),
+        },
       ),
-      home: const HomePage(),
-      routes: {
-        // Incomes
-        '/incomes/create': (context) => CreateIncomePage(),
-        // Expenses
-        '/expenses/create': (context) => CreateExpensePage(),
-      },
     );
   }
 }

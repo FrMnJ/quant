@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quant/state/quantity_state_provider.dart';
 
 class Quant extends StatelessWidget {
   const Quant({
     super.key,
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class Quant extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
         child: Text(
-          "\$00.00",
+          "\$${context.watch<QuantityStateProvider>().quantityAsString()}",
           style: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.bold,

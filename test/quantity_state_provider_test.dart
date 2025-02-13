@@ -2,13 +2,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quant/domain/expense.dart';
 import 'package:quant/domain/income.dart';
-import 'package:quant/state/app_state_provider.dart';
+import 'package:quant/state/quantity_state_provider.dart';
 
 void main(){
   group("AppStateProvider", (){
-    late AppStateProvider appStateProvider;
+    late QuantityStateProvider appStateProvider;
     setUp((){
-      appStateProvider = AppStateProvider();
+      appStateProvider = QuantityStateProvider();
     });
     
     test("should return the initial state", (){

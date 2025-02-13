@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:quant/domain/expense.dart';
 import 'package:quant/domain/income.dart';
 
-class AppStateProvider extends ChangeNotifier{
+class QuantityStateProvider extends ChangeNotifier{
   late double _quantity;
   late List<Income> _incomes;
   late List<Expense> _expenses;
 
-  AppStateProvider({double quantity = 0.0}){
+  QuantityStateProvider({double quantity = 0.0}){
     _quantity = quantity;
     _incomes = List<Income>.empty(growable: true);
     _expenses = List<Expense>.empty(growable: true);
@@ -33,5 +33,13 @@ class AppStateProvider extends ChangeNotifier{
     _quantity -= expense.quantity;
     _expenses.add(expense);
     notifyListeners();
+  }
+
+  String quantityAsString() {
+    String quantityStr = _quantity.toStringAsFixed(2);
+    if (quantityStr.length > 10) {
+      quantityStr = quantityStr.substring(0, 10);
+    }
+    return quantityStr;
   }
 }
