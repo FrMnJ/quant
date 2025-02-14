@@ -59,6 +59,11 @@ class HomePage extends StatelessWidget {
             Key("addExpenseButton"),
             '/expenses/create',
           ),
+          _buildButton(context,
+            colorScheme,
+            "Ver historial",
+            Key("viewHistoryButton"),
+           '/history'),
         ],
       ),
     );
