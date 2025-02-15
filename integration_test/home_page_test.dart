@@ -14,8 +14,10 @@ void main(){
       expect(find.text('\$0.00'), findsOneWidget);
       expect(find.text('Añadir ingreso'), findsOneWidget);
       expect(find.text('Añadir gasto'), findsOneWidget);
+      expect(find.text('Ver historial'), findsOneWidget);
       expect(find.byKey(Key('addIncomeButton')), findsOneWidget);
       expect(find.byKey(Key('addExpenseButton')), findsOneWidget);
+      expect(find.byKey(Key('viewHistoryButton')), findsOneWidget);
     });
   });
 }

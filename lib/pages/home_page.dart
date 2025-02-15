@@ -10,17 +10,19 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       body: SafeArea(
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildWelcomeText(colorScheme),
-              const SizedBox(height: 50),
-              Center(child: Quant()),
-              const SizedBox(height: 60),
-              _buildActionButtons(context, colorScheme),
-            ],
+        child: SingleChildScrollView( // Add SingleChildScrollView
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildWelcomeText(colorScheme),
+                const SizedBox(height: 50),
+                Center(child: Quant()),
+                const SizedBox(height: 60),
+                _buildActionButtons(context, colorScheme),
+              ],
+            ),
           ),
         ),
       ),
@@ -59,6 +61,12 @@ class HomePage extends StatelessWidget {
             Key("addExpenseButton"),
             '/expenses/create',
           ),
+          const SizedBox(height: 20),
+          _buildButton(context,
+            colorScheme,
+            "Ver historial",
+            Key("viewHistoryButton"),
+           '/history'),
         ],
       ),
     );
