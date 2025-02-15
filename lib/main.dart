@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quant/pages/create_expense_page.dart';
 import 'package:quant/pages/create_income_page.dart';
+import 'package:quant/pages/history_page.dart';
 import 'package:quant/pages/home_page.dart';
 import 'package:quant/state/quantity_state_provider.dart';
 import 'package:quant/theme/colors.dart';
@@ -39,6 +40,7 @@ class App extends StatelessWidget {
         home: const HomePage(),
         routes: {
           '/home': (context) => HomePage(),
+          '/history': (context) => HistoryPage(),
           // Incomes
           '/incomes/create': (context) => CreateIncomePage(),
           // Expenses
