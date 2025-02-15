@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:quant/domain/income.dart';
 import 'package:quant/state/quantity_state_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IncomeCreationForm extends StatefulWidget {
   const IncomeCreationForm({super.key});
@@ -15,8 +16,33 @@ class IncomeCreationForm extends StatefulWidget {
 
 class IncomeCreationFormState extends State<IncomeCreationForm> {
   final _formKey = GlobalKey<FormState>();
-  final quantityController = TextEditingController();
-  final descriptionController = TextEditingController();
+  late TextEditingController quantityController;
+  late TextEditingController descriptionController;
+
+  @override
+  void initState(){
+    super.initState();
+    quantityController = TextEditingController();
+    descriptionController = TextEditingController();
+    _loadFormState();
+  }
+
+  /// Load form state from SharedPreferences
+  Future<void> _loadFormState() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      quantityController.text = prefs.getString('income_quantity') ?? '';
+      descriptionController.text = prefs.getString('income_description') ?? '';
+    });
+  }
+
+  /// Save form state whenever user types
+  Future<void> _saveFormState() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('income_quantity', quantityController.text);
+    await prefs.setString('income_description', descriptionController.text);
+  }
+
 
   @override
   void dispose() {
@@ -68,6 +94,7 @@ class IncomeCreationFormState extends State<IncomeCreationForm> {
       controller: quantityController,
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       key: Key("amountField"),
+      onChanged: (_) => _saveFormState(),
       validator: (quantity) {
         if (quantityController.text.length > 6) {
           return "Número demasiado largo, trata de reducirlo";
@@ -90,6 +117,7 @@ class IncomeCreationFormState extends State<IncomeCreationForm> {
     return TextFormField(
       controller: descriptionController,
       key: Key("descriptionField"),
+      onChanged: (_)=> _saveFormState(),
       validator: (description) {
         if (descriptionController.text.length < 3) {
           return "Ingresa una descripción de 3 o más caracteres.";
@@ -133,7 +161,7 @@ class IncomeCreationFormState extends State<IncomeCreationForm> {
     );
   }
 
-  void _saveIncome(BuildContext context, ColorScheme colorScheme) {
+  void _saveIncome(BuildContext context, ColorScheme colorScheme) async {
     try {
       Income income = Income(quantityNum, descriptionController.text.trim());
       context.read<QuantityStateProvider>().addIncome(income);
@@ -143,6 +171,9 @@ class IncomeCreationFormState extends State<IncomeCreationForm> {
           content: Text("Ingreso añadido correctamente"),
         ),
       );
+      final prefs = await SharedPreferences.getInstance();
+      prefs.remove('income_quantity');
+      prefs.remove('income_description');
     } on Exception catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
