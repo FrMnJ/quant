@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:quant/domain/expense.dart';
 import 'package:quant/state/quantity_state_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ExpenseCreationForm extends StatefulWidget {
   const ExpenseCreationForm({super.key});
@@ -15,14 +16,40 @@ class ExpenseCreationForm extends StatefulWidget {
 
 class ExpenseCreationState extends State<ExpenseCreationForm> {
   final _formKey = GlobalKey<FormState>();
-  final quantityController = TextEditingController();
-  String? _category = "Comida";
-  final descriptionController = TextEditingController();
+  late TextEditingController quantityController;
+  late String? _category;
+  late TextEditingController descriptionController;
+
+  @override
+  void initState(){
+    super.initState();
+    quantityController = TextEditingController();
+    _category = "Comida";
+    descriptionController = TextEditingController();
+    _loadFormState();
+  }
+
+  Future<void> _loadFormState() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      quantityController.text = prefs.getString('expense_quantity') ?? '';
+      _category = prefs.getString('expense_category') ?? 'Comida';
+      descriptionController.text = prefs.getString('expense_description') ?? '';
+    });
+  }
+
+  Future<void> _saveFormState() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('expense_quantity', quantityController.text);
+    await prefs.setString('expense_category', _category!);
+    await prefs.setString('expense_description', descriptionController.text);
+  }
 
   void _setCategory(String? selectedCategory){
     setState(() {
       _category = selectedCategory;
     });
+    _saveFormState();
   }
 
   @override
@@ -77,6 +104,7 @@ class ExpenseCreationState extends State<ExpenseCreationForm> {
       controller: quantityController,
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       key: Key("amountField"),
+      onChanged: (_) => _saveFormState(),
       validator: (quantity) {
         if (quantityController.text.length > 6) {
           return "Número demasiado largo, trata de reducirlo";
@@ -99,6 +127,7 @@ class ExpenseCreationState extends State<ExpenseCreationForm> {
     return TextFormField(
       controller: descriptionController,
       key: Key("descriptionField"),
+      onChanged: (_)=> _saveFormState(),
       validator: (description) {
         if (descriptionController.text.length < 3) {
           return "Ingresa una descripción de 3 o más caracteres.";
@@ -142,7 +171,7 @@ class ExpenseCreationState extends State<ExpenseCreationForm> {
     );
   }
 
-  void _saveExpense(BuildContext context, ColorScheme colorScheme) {
+  void _saveExpense(BuildContext context, ColorScheme colorScheme) async {
     try {
       Expense expense = Expense(quantityNum,
        descriptionController.text.trim(),
@@ -155,6 +184,10 @@ class ExpenseCreationState extends State<ExpenseCreationForm> {
           content: Text("Gasto añadido correctamente"),
         ),
       );
+      final prefs = await SharedPreferences.getInstance();
+      prefs.remove('income_quantity');
+      prefs.remove('income_category');
+      prefs.remove('income_description');
     } on Exception catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
