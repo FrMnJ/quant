@@ -185,9 +185,9 @@ class ExpenseCreationState extends State<ExpenseCreationForm> {
         ),
       );
       final prefs = await SharedPreferences.getInstance();
-      prefs.remove('income_quantity');
-      prefs.remove('income_category');
-      prefs.remove('income_description');
+      prefs.remove('expense_quantity');
+      prefs.remove('expense_category');
+      prefs.remove('expense_description');
     } on Exception catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

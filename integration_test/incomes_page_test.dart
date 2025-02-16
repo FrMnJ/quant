@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:quant/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main(){
+void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group("end-to-end incomes page",(){
-    testWidgets('user can add incomes', (WidgetTester tester) async{
+  group("end-to-end incomes page", () {
+    testWidgets('user can add incomes', (WidgetTester tester) async {
       await tester.pumpWidget(App());
 
       await tester.tap(find.byKey(Key('addIncomeButton')));
