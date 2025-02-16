@@ -59,14 +59,12 @@ class QuantityStateProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     _quantity = prefs.getDouble('quantity') ?? 0.0;
     String? incomesStr = prefs.getString('incomes');
-    print(incomesStr);
     if (incomesStr != null) {
       _incomes = (json.decode(incomesStr) as List)
           .map((e) => Income.fromJson(e as Map<String, dynamic>))
           .toList();
     }
     String? expensesStr = prefs.getString('expenses');
-    print(expensesStr);
     if (expensesStr != null) {
       _expenses = (json.decode(expensesStr) as List)
           .map((e) => Expense.fromJson(e as Map<String, dynamic>))
